@@ -114,3 +114,9 @@ body {
       fill: dodgerblue;
       fill-opacity: .365;
     }
+
+    .line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }

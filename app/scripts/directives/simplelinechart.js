@@ -73,7 +73,7 @@ angular.module('d3OnAngularSeedApp')
     	});
 		
 		function display(extent) {
-			var rects, labels;
+			var rects, labels, strokes;
 			if(extent[0] === extent[1]) {
 				var minExtent = d3.min(items.map(function(d) { return d.start; })),
 					maxExtent = d3.max(items.map(function(d) { return d.start; }));
@@ -106,6 +106,19 @@ angular.module('d3OnAngularSeedApp')
 				.on("click", function(d) { scope.clicked({item:d}); });
 
 			rects.exit().remove();
+
+			strokes = itemRects.selectAll("line")
+		        .data(visItems, function(d) { return d.id; })
+		        				.attr("x1", function(d) {return x1(d.mid);})
+				.attr("x2", function(d) {return x1(d.mid);});
+
+			strokes.enter().append("line").attr("class","line")
+				.attr("x1", function(d) {return x1(d.mid);})
+				.attr("x2", function(d) {return x1(d.mid);})
+				.attr("y1", function(d) {return y1(d.lane) + 100;})
+				.attr("y2", function(d) {return y1(d.lane);});
+
+				strokes.exit().remove();
 
 			//update the item labels
 			labels = itemRects.selectAll("text")
