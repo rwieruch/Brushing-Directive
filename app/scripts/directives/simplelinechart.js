@@ -12,7 +12,8 @@ angular.module('d3OnAngularSeedApp')
       restrict: 'EA',
       scope: {
       	items: '=',
-      	brush: '='
+      	brush: '=',
+      	clicked: '&'
       },
       link: function(scope, element, attrs) {
         d3Service.d3().then(function(d3) {
@@ -93,13 +94,16 @@ angular.module('d3OnAngularSeedApp')
 			        .data(visItems, function(d) { return d.id; })
 				.attr("x", function(d) {return x1(d.start);})
 				.attr("width", function(d) {return x1(d.end) - x1(d.start);});
+
+				//scope.brushed({brush:brush.extent()});
 			
 			rects.enter().append("rect")
 				.attr("class", function(d) {return "miniItem" + d.lane;})
 				.attr("x", function(d) {return x1(d.start);})
 				.attr("y", function(d) {return y1(d.lane) + 10;})
 				.attr("width", function(d) {return x1(d.end) - x1(d.start);})
-				.attr("height", function(d) {return .8 * y1(1);});
+				.attr("height", function(d) {return .8 * y1(1);})
+				.on("click", function(d) { scope.clicked({item:d}); });
 
 			rects.exit().remove();
 

@@ -15,6 +15,10 @@ angular.module('d3OnAngularSeedApp')
         $scope.$apply();
     };
 
+    $scope.clicked = function(d) {
+    	console.log(d);
+    }
+
 	$scope.items = [{"lane": 0, "id": "Qin", "start": 5, "end": 205},
 		{"lane": 0, "id": "Jin", "start": 265, "end": 420},
 		{"lane": 0, "id": "Sui", "start": 580, "end": 615},
